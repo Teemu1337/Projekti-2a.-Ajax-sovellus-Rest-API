@@ -1,1 +1,37 @@
 <!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>Juna-aikataulut</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Commuter Traffic App</h1>
+
+  <label>Asema:</label>
+  <select id="stationSelect"></select>
+
+  <label>Haku:</label>
+  <input id="searchInput" type="text" placeholder="Hae määränpään tai junan numeron mukaan">
+
+  <div id="trainContainer"></div>
+
+  <script>
+    let allTrains = [];
+
+    // ladataan asemat sivun latautuessa Käyttäen DOMContentLoaded komentoa sekä fetch funktiota
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://rata.digitraffic.fi/api/v1/metadata/stations")
+        .then(r => r.json()) // data on json muodossa!
+        .then(data => {
+          const select = document.getElementById("stationSelect");
+          select.innerHTML = "<option value=''>Valitse asema</option>";
+          data.filter(s => s.passengerTraffic).forEach(s => {
+            select.innerHTML += `<option value="${s.stationShortCode}">${s.stationName}</option>`;
+          });
+        });
+
+      document.getElementById("stationSelect").addEventListener("change", getTrains);
+      document.getElementById("searchInput").addEventListener("input", filterTrains);
+    });
+

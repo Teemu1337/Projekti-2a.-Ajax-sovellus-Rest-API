@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+#controls {
+  margin: 20px;
+}
+
+select, input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+}
+
+#trainContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.train-card {
+  background: #1b1b1b;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #222;
+}
+
+.train-card h3 {
+  color: #00d1ff;
+}
+
+.train-card p {
+  margin: 5px 0;
+}
