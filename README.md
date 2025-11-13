@@ -1,6 +1,6 @@
 Commuter Traffic App – Digitraffic API / Teemu Hyppönen
 
-Verkkolinkit: Sivu: https://teemu1337.github.io/Projekti-2a.-Ajax-sovellus-Rest-API/ Video: 
+Verkkolinkit: Sivu: https://teemu1337.github.io/Projekti-2a.-Ajax-sovellus-Rest-API/ Video: https://video.laurea.fi/media/Videoraportti+Junaliikenne+APP/0_meybdigv
 
 
 Oma arvio työstä ja oman osaamisen kehittymisestä:
