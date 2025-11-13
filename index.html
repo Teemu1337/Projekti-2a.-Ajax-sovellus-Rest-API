@@ -35,6 +35,42 @@
       document.getElementById("searchInput").addEventListener("input", filterTrains);
     });
 
- </script>
+    // haetaan junat valitulle asemalle
+    function getTrains() {
+      const code = document.getElementById("stationSelect").value;
+      if (!code) return;
+      fetch(`https://rata.digitraffic.fi/api/v1/live-trains/station/${code}?departing_trains=10&arriving_trains=10`)
+        .then(r => r.json())
+        .then(data => {
+          allTrains = data.map(t => ({
+            num: t.trainNumber,
+            type: t.trainType,
+            dest: t.timeTableRows.at(-1).stationShortCode,
+            time: new Date(t.timeTableRows.find(r => r.stationShortCode === code && r.type === "DEPARTURE")?.scheduledTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+            cancelled: t.cancelled
+          }));
+          showTrains(allTrains);
+        });
+    }
+
+    // näytetään junat
+    function showTrains(trains) {
+      const c = document.getElementById("trainContainer");
+      c.innerHTML = trains.map(t => `
+        <div class="train-card">
+          <h3>${t.type} ${t.num}</h3>
+          <p>Määränpää: ${t.dest}</p>
+          <p>Aika: ${t.time}</p>
+          ${t.cancelled ? "<p style='color:red'>Peruttu</p>" : ""}
+        </div>
+      `).join("");
+    }
+
+    // suodatetaan hakusanan perusteella
+    function filterTrains() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      showTrains(allTrains.filter(t => t.dest.toLowerCase().includes(q) || t.num.toString().includes(q)));
+    }
+  </script>
 </body>
 </html>
